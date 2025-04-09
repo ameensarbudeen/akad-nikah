@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Majlis Ijab Qabul - Ameen & Nurhilwana</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Playfair Display', serif;
+      background-color: #f2f2f2;
+      color: #000;
+    }
+    .container {
+      max-width: 700px;
+      margin: 100px auto;
+      padding: 20px;
+      text-align: center;
+    }
+    h1, h2, p {
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .btn:hover {
+      background: #333;
+    }
+    .countdown-label {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+    .countdown-values {
+      font-family: 'Great Vibes', cursive;
+      font-size: 36px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Assalamualaikum Warahmatullahi Wabarakatuh</h2>
+    <h2>Dan Salam Sejahtera</h2>
+    <p>Dengan izin Allah SWT dan penuh kesyukuran, saya</p>
+    <h2>Haji Sarbudeen bin Mohamed Kiyastheen</h2>
+    <h2>& keluarga</h2>
+    <p>ingin menjemput saudara saudari ke</p>
+    <h2>Majlis Ijab Qabul putera kesayangan kami</h2>
+
+    <h1>Muhammad Fauzul Ameen</h1>
+    <h2>&</h2>
+    <h1>Nurhilwana binti Abdul Rahman</h1>
+
+    <hr style="margin: 40px 0;">
+
+    <h2>📅 Tarikh</h2>
+    <p><strong>Sabtu, 1 Jun 2025</strong><br>Acara bermula pada pukul 8:00 pagi</p>
+    <p>bersamaan 6 Zulkaedah 1446H</p>
+
+    <h2>📍 Lokasi</h2>
+    <p>Dewan Illiyin, Masjid Darul Ehsan, Taman TAR</p>
+    <a href="https://maps.app.goo.gl/V5Ex2vS6THL22S5n6" target="_blank" class="btn">Lihat Lokasi di Google Maps</a>
+
+    <div id="countdown" style="font-size: 28px; margin-top: 30px; margin-bottom: 30px;"></div>
+
+    <hr style="margin: 40px 0;">
+
+    <p style="font-style: italic; font-size: 14px;">
+      “Ya Allah, berkatilah majlis yang diadakan ini, jadikanlah pasangan ini bahagia dan berkekalan hingga ke syurga, serta kurniakanlah kepada mereka zuriat yang soleh dan menyejukkan mata. Ameen.”
+    </p>
+    <hr style="margin: 40px 0;">
+    <p>Semoga dengan kehadiran dan doa restu hadirin sekalian akan menyerikan lagi majlis kami dan semoga diberkati Allah SWT.</p>
+    <h2>Terima Kasih</h2>
+  </div>
+  <script>
+    const countdownDate = new Date("June 1, 2025 08:00:00").getTime();
+    const countdownEl = document.getElementById("countdown");
+    const timer = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = countdownDate - now;
+
+    if (distance < 0) {
+      clearInterval(timer);
+      countdownEl.innerHTML = "Majlis telah bermula";
+      return;
+    }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      countdownEl.innerHTML = `
+        <div class="countdown-label">Kira detik ke majlis:</div>
+        <div class="countdown-values">${days} hari ${hours} jam ${minutes} minit ${seconds} saat</div>
+      `;
+    }, 1000);
+  </script>
+</body>
+</html>
