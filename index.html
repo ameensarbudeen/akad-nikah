@@ -7,6 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
@@ -15,12 +16,25 @@
       background-color: #f2f2f2;
       color: #000;
     }
-    .container {
-      max-width: 700px;
-      margin: 100px auto;
-      padding: 20px;
+    html, body {
+      margin: 0;
+      padding: 0;
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      scroll-behavior: smooth;
+    }
+
+    .full-section {
+      height: 100vh;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      scroll-snap-align: start;
       text-align: center;
     }
+
     h1, h2, p {
       margin-bottom: 20px;
     }
@@ -44,45 +58,59 @@
       font-family: 'Great Vibes', cursive;
       font-size: 36px;
     }
+    .date-highlight {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px;
+      margin-bottom: 0;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Assalamualaikum Warahmatullahi Wabarakatuh</h2>
-    <h2>Dan Salam Sejahtera</h2>
-    <p>Dengan izin Allah SWT dan penuh kesyukuran, saya</p>
-    <h2>Haji Sarbudeen bin Mohamed Kiyastheen</h2>
-    <h2>& keluarga</h2>
-    <p>ingin menjemput saudara saudari ke</p>
-    <h2>Majlis Akad Nikah putera kesayangan kami</h2>
+  <div id="audio-controls" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
+    <button id="toggleAudio" style="padding: 8px 12px; font-family: 'Playfair Display', serif;">⏸ Pause</button>
+  </div>
 
+  <section class="full-section" id="section1">
+    <h2>Majlis Akad Nikah</h2>
     <h1>Muhammad Fauzul Ameen</h1>
     <h2>&</h2>
     <h1>Nurhilwana binti Abdul Rahman</h1>
+    <hr style="width: 60%;">
+    <p class="date-highlight"><strong>Sabtu, 1 Jun 2025</strong><br>bersamaan 6 Zulkaedah 1446H</p>
+    <p>Dengan izin-Nya, majlis akan bermula tepat pada jam 8:00 pagi</p>
+    <div id="countdown"></div>
+    <a href="#section2" style="margin-top: 20px;">⬇️</a>
+  </section>
 
-    <hr style="margin: 40px 0;">
+  <section class="full-section" id="section2">
+    <h2>Assalamualaikum Warahmatullahi Wabarakatuh</h2>
+    <h2>Dan Salam Sejahtera</h2>
+    <p>Dengan penuh takzim dan kesyukuran kepada Allah SWT, saya</p>
+    <h2>Haji Sarbudeen bin Mohamed Kiyastheen</h2>
+    <h2>& keluarga</h2>
+    <p>mengundang kehadiran serta keberkatan saudara dan saudari sekalian ke</p>
+    <h2>Majlis Akad Nikah putera kesayangan kami</h2>
+    <a href="#section3" style="margin-top: 20px;">⬇️</a>
+  </section>
 
-    <h2>📅 Tarikh</h2>
-    <p><strong>Sabtu, 1 Jun 2025</strong><br>Acara bermula pada pukul 8:00 pagi</p>
-    <p>bersamaan 6 Zulkaedah 1446H</p>
-
+  <section class="full-section" id="section3">
     <h2>📍 Lokasi</h2>
     <p>Dewan Illiyin, Masjid Darul Ehsan, Taman TAR</p>
     <a href="https://maps.app.goo.gl/V5Ex2vS6THL22S5n6" target="_blank" class="btn">Lihat Lokasi di Google Maps</a>
+    <br><br>
+    <h2>🎽 Pakaian</h2>
+    <p>Sopan dan menepati adab serta kesucian rumah Allah</p>
+    <a href="#section4" style="margin-top: 20px;">⬇️</a>
+  </section>
 
-    <div id="countdown" style="font-size: 28px; margin-top: 30px; margin-bottom: 30px;"></div>
-
-    <hr style="margin: 40px 0;">
-
-    <p style="font-style: italic; font-size: 14px;">
+  <section class="full-section" id="section4">
+    <p style="font-style: italic; font-size: 14px; max-width: 500px;">
       “Ya Allah, berkatilah majlis yang diadakan ini, jadikanlah pasangan ini bahagia dan berkekalan hingga ke syurga, serta kurniakanlah kepada mereka zuriat yang soleh dan menyejukkan mata. Ameen.”
     </p>
-    <hr style="margin: 40px 0;">
-    <p>Semoga dengan kehadiran dan doa restu hadirin sekalian akan menyerikan lagi majlis kami dan semoga diberkati Allah SWT.</p>
+    <hr style="width: 60%;">
+    <p>Semoga kehadiran dan doa restu para tetamu yang budiman menyemarakkan lagi keberkatan majlis ini serta dikurniakan limpahan rahmat daripada Allah SWT.</p>
     <h2>Terima Kasih</h2>
-  </div>
-  <!-- Hidden play trigger -->
-  <button id="playBtn" style="display: none;">Play</button>
+  </section>
 
   <audio id="bgMusic" autoplay loop>
     <source src="weddingagain.mp3" type="audio/mpeg">
@@ -90,31 +118,57 @@
   </audio>
 
   <script>
+    const bgMusic = document.getElementById("bgMusic");
+    const toggleBtn = document.getElementById("toggleAudio");
+    let isPlaying = false;
+
     window.addEventListener("DOMContentLoaded", () => {
-      const playBtn = document.getElementById("playBtn");
-      const bgMusic = document.getElementById("bgMusic");
+      bgMusic.volume = 0.05;
 
-      // Some browsers block autoplay, so we simulate a click
-      playBtn.click();
-
-      // Attempt to play again after user interacts (best effort fallback)
-      document.body.addEventListener("click", () => {
-        bgMusic.play().catch(() => {});
+      // Try to autoplay
+      bgMusic.play().then(() => {
+        isPlaying = true;
+        toggleBtn.textContent = "⏸ Pause";
+      }).catch(() => {
+        isPlaying = false;
+        toggleBtn.textContent = "▶️ Play";
       });
+
+      // Fallback: attempt play on first user interaction
+      document.body.addEventListener("click", () => {
+        if (!isPlaying) {
+          bgMusic.play().then(() => {
+            isPlaying = true;
+            toggleBtn.textContent = "⏸ Pause";
+          });
+        }
+      }, { once: true });
     });
-  </script>
-  <script>
+
+    toggleBtn.addEventListener("click", () => {
+      if (isPlaying) {
+        bgMusic.pause();
+        toggleBtn.textContent = "▶️ Play";
+      } else {
+        bgMusic.play().then(() => {
+          toggleBtn.textContent = "⏸ Pause";
+        });
+      }
+      isPlaying = !isPlaying;
+    });
+
+    // Countdown timer
     const countdownDate = new Date("June 1, 2025 08:00:00").getTime();
     const countdownEl = document.getElementById("countdown");
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const distance = countdownDate - now;
 
-    if (distance < 0) {
-      clearInterval(timer);
-      countdownEl.innerHTML = "Majlis telah bermula";
-      return;
-    }
+      if (distance < 0) {
+        clearInterval(timer);
+        countdownEl.innerHTML = "Majlis telah bermula";
+        return;
+      }
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
