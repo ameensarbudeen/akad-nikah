@@ -81,15 +81,28 @@
     <p>Semoga dengan kehadiran dan doa restu hadirin sekalian akan menyerikan lagi majlis kami dan semoga diberkati Allah SWT.</p>
     <h2>Terima Kasih</h2>
   </div>
-  <iframe
-    width="0"
-    height="0"
-    src="https://www.youtube.com/embed/Yaid4y9g1NU?autoplay=1&loop=1&playlist=Gx3pmgVFaDQ"
-    frameborder="0"
-    allow="autoplay"
-    allowfullscreen
-    style="display:none;"
-  ></iframe>
+  <!-- Hidden play trigger -->
+  <button id="playBtn" style="display: none;">Play</button>
+
+  <audio id="bgMusic" autoplay loop>
+    <source src="weddingagain.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const playBtn = document.getElementById("playBtn");
+      const bgMusic = document.getElementById("bgMusic");
+
+      // Some browsers block autoplay, so we simulate a click
+      playBtn.click();
+
+      // Attempt to play again after user interacts (best effort fallback)
+      document.body.addEventListener("click", () => {
+        bgMusic.play().catch(() => {});
+      });
+    });
+  </script>
   <script>
     const countdownDate = new Date("June 1, 2025 08:00:00").getTime();
     const countdownEl = document.getElementById("countdown");
