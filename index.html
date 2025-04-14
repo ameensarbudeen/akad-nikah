@@ -14,172 +14,76 @@
       padding: 0;
       font-family: 'Playfair Display', serif;
       background-color: #f2f2f2;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
       color: #000;
     }
-    html, body {
+
+    .full-svg {
+      height: 100vh;
+      width: 100vw;
       margin: 0;
       padding: 0;
-      scroll-snap-type: y mandatory;
+      overflow-x: hidden;
       overflow-y: scroll;
-      scroll-behavior: smooth;
-    }
-
-    .full-section {
-      height: 100vh;
-      padding: 40px 20px;
+      scroll-snap-type: y mandatory;
+      scroll-snap-align: start;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      scroll-snap-align: start;
-      text-align: center;
     }
 
-    h1, h2, p {
-      margin-bottom: 20px;
+    .svg-fullscreen {
+      width: 100%;
+      height: auto;
+      max-width: 1920px;
+      margin: 0 auto;
+      display: block;
+      object-fit: contain;
     }
-    .btn {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #000;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 5px;
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
     }
-    .btn:hover {
-      background: #333;
+
+    @keyframes fadeInTopDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
-    .countdown-label {
-      font-size: 20px;
-      margin-bottom: 5px;
-    }
-    .countdown-values {
-      font-family: 'Great Vibes', cursive;
-      font-size: 36px;
-    }
-    .date-highlight {
-      font-family: 'Playfair Display', serif;
-      font-size: 28px;
-      margin-bottom: 0;
+
+    .fade-in-top-down {
+      animation: fadeInTopDown 1.5s ease-out;
     }
   </style>
+  <script>
+    if (window.innerWidth < 768) {
+      window.location.href = "mobile.html";
+    }
+  </script>
 </head>
 <body>
-  <div id="audio-controls" style="position: fixed; top: 20px; right: 20px; z-index: 9999;">
-    <button id="toggleAudio" style="padding: 8px 12px; font-family: 'Playfair Display', serif;">⏸ Pause</button>
-  </div>
-
-  <section class="full-section" id="section1">
-    <h2>Majlis Akad Nikah</h2>
-    <h1>Muhammad Fauzul Ameen</h1>
-    <h2>&</h2>
-    <h1>Nurhilwana binti Abdul Rahman</h1>
-    <hr style="width: 60%;">
-    <p class="date-highlight"><strong>Sabtu, 1 Jun 2025</strong><br>bersamaan 6 Zulkaedah 1446H</p>
-    <p>Dengan izin-Nya, majlis akan bermula tepat pada jam 8:00 pagi</p>
-    <div id="countdown"></div>
-    <a href="#section2" style="margin-top: 20px;">⬇️</a>
-  </section>
-
-  <section class="full-section" id="section2">
-    <h2>Assalamualaikum Warahmatullahi Wabarakatuh</h2>
-    <h2>Dan Salam Sejahtera</h2>
-    <p>Dengan penuh takzim dan kesyukuran kepada Allah SWT, saya</p>
-    <h2>Haji Sarbudeen bin Mohamed Kiyastheen</h2>
-    <h2>& keluarga</h2>
-    <p>mengundang kehadiran serta keberkatan saudara dan saudari sekalian ke</p>
-    <h2>Majlis Akad Nikah putera kesayangan kami</h2>
-    <a href="#section3" style="margin-top: 20px;">⬇️</a>
-  </section>
-
-  <section class="full-section" id="section3">
-    <h2>📍 Lokasi</h2>
-    <p>Dewan Illiyin, Masjid Darul Ehsan, Taman TAR</p>
-    <a href="https://maps.app.goo.gl/V5Ex2vS6THL22S5n6" target="_blank" class="btn">Lihat Lokasi di Google Maps</a>
-    <br><br>
-    <h2>🎽 Pakaian</h2>
-    <p>Sopan dan menepati adab serta kesucian rumah Allah</p>
-    <a href="#section4" style="margin-top: 20px;">⬇️</a>
-  </section>
-
-  <section class="full-section" id="section4">
-    <p style="font-style: italic; font-size: 14px; max-width: 500px;">
-      “Ya Allah, berkatilah majlis yang diadakan ini, jadikanlah pasangan ini bahagia dan berkekalan hingga ke syurga, serta kurniakanlah kepada mereka zuriat yang soleh dan menyejukkan mata. Ameen.”
-    </p>
-    <hr style="width: 60%;">
-    <p>Semoga kehadiran dan doa restu para tetamu yang budiman menyemarakkan lagi keberkatan majlis ini serta dikurniakan limpahan rahmat daripada Allah SWT.</p>
-    <h2>Terima Kasih</h2>
-  </section>
-
-  <audio id="bgMusic" autoplay loop>
-    <source src="weddingagain.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
-
-  <script>
-    const bgMusic = document.getElementById("bgMusic");
-    const toggleBtn = document.getElementById("toggleAudio");
-    let isPlaying = false;
-
-    window.addEventListener("DOMContentLoaded", () => {
-      bgMusic.volume = 0.05;
-
-      // Try to autoplay
-      bgMusic.play().then(() => {
-        isPlaying = true;
-        toggleBtn.textContent = "⏸ Pause";
-      }).catch(() => {
-        isPlaying = false;
-        toggleBtn.textContent = "▶️ Play";
-      });
-
-      // Fallback: attempt play on first user interaction
-      document.body.addEventListener("click", () => {
-        if (!isPlaying) {
-          bgMusic.play().then(() => {
-            isPlaying = true;
-            toggleBtn.textContent = "⏸ Pause";
-          });
-        }
-      }, { once: true });
-    });
-
-    toggleBtn.addEventListener("click", () => {
-      if (isPlaying) {
-        bgMusic.pause();
-        toggleBtn.textContent = "▶️ Play";
-      } else {
-        bgMusic.play().then(() => {
-          toggleBtn.textContent = "⏸ Pause";
-        });
-      }
-      isPlaying = !isPlaying;
-    });
-
-    // Countdown timer
-    const countdownDate = new Date("June 1, 2025 08:00:00").getTime();
-    const countdownEl = document.getElementById("countdown");
-    const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const distance = countdownDate - now;
-
-      if (distance < 0) {
-        clearInterval(timer);
-        countdownEl.innerHTML = "Majlis telah bermula";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdownEl.innerHTML = `
-        <div class="countdown-label">Kira detik ke majlis:</div>
-        <div class="countdown-values">${days} hari ${hours} jam ${minutes} minit ${seconds} saat</div>
-      `;
-    }, 1000);
-  </script>
+  <main>
+    <section class="full-svg" style="background-color: #f6f2e7;">
+      <object data="assets/page-1.svg" type="image/svg+xml" class="svg-fullscreen fade-in-top-down"></object>
+    </section>
+    <section class="full-svg" style="background-color: #f6f2e7;">
+      <object data="assets/page-2.svg" type="image/svg+xml" class="svg-fullscreen"></object>
+    </section>
+    <section class="full-svg" style="background-color: #557c70;">
+      <object data="assets/page-3.svg" type="image/svg+xml" class="svg-fullscreen"></object>
+    </section>
+    <section class="full-svg" style="background-color: #f6f2e7;">
+      <object data="assets/page-4.svg" type="image/svg+xml" class="svg-fullscreen"></object>
+    </section>
+  </main>
 </body>
 </html>
